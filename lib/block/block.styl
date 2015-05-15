@@ -1,0 +1,176 @@
+@keyframes automattic-editor-appear
+  0%
+    opacity: 0
+  50%
+    opacity: 0
+  100%
+    opacity: 1
+
+.automattic-editor-wrapper
+  .block
+    position: relative
+    width: calc(100% - 2 * 10px)
+    line-height: inherit
+    border: 1px solid rgba(0,0,0,0)
+    border-radius: 3px
+    background: #fafafa;
+    transition: background 0.5s linear, border 0.5s linear;
+    z-index: 1
+    animation: automattic-editor-appear 0.4s 1 ease-out;
+
+    &.active
+      .footer
+        height: 35px
+        opacity: 1
+
+    .placeholder
+      color: #777
+      &:hover
+        p
+          color: #444
+
+    /**
+     * Structure
+     */
+
+    & > .gutter,
+    & > .delete
+      float: left
+      margin-left: -40px
+      width: 40px
+
+    & > .body
+      float: left
+      width: 100%
+      min-height: 25px
+
+      p
+        margin: 0
+        padding: 0
+        width: 100%
+        min-height: 1em
+
+    & > .footer
+      width: 100%
+      text-align: center
+      -webkit-transition: all .2s linear
+      transition: all .2s linear
+      height: 0
+      overflow: hidden
+
+    /**
+     * Editor block admin buttons
+     */
+
+    .grabber,
+    .delete-button
+      display: none
+      color: #ccc
+      position: absolute
+      cursor: -webkit-grab
+      cursor: -moz-grab
+      cursor: grab
+      left: 7px
+      width: 15px
+      height: 20px
+      line-height: 20px
+      text-align: center
+      -webkit-touch-callout: none
+      outline-style:none /*IE*/
+      z-index: 100
+      &:before
+        font: normal 14px/1 'dashicons'
+
+
+    // Grabber button
+    .grabber
+      cursor: move
+      top: 8px
+      &:before
+        font-size: 22px
+        content: '\022EE'
+
+    // Delete button
+    .delete-button
+      cursor: pointer
+      bottom: 6px
+      &:before
+        content: '\f335'
+
+    &:hover
+      border: 1px solid #ccc
+      background: white
+
+    &:hover .grabber,
+    &:hover .delete-button
+      display: block
+    
+    &.focused, &.inner-focused
+      box-shadow: 0 0 0 1px #2ba1cb
+      transition: background 0.5s linear
+
+    &.focused .grabber, &.inner-focused .grabber
+      display: block
+      color: #2ba1cb
+
+    &.selected::after
+      content: ''
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      background: Highlight
+      mix-blend-mode: multiply;
+      opacity: 0.75
+      border-radius: 4px
+
+    &.focused:hover, &.inner-focused, &.selected:hover
+      border: 1px solid transparent
+
+    .delete-button, .grabber
+      &:hover
+        color: black
+
+    // &.grab-hover
+
+    &.dragging
+      box-shadow: none
+      background: none !important
+
+    & .body
+      transition: 0.4s cubic-bezier(0.5,-0.5,0.5,1.5) transform, 0.4s ease opacity
+      opacity: 1
+      transform: perspective(900px)
+
+    &.dragging
+      .body
+        opacity: 0.3
+        transform: perspective(900px) /*rotateX(-10deg)*/ scale(0.95)
+      .grabber, .delete-button
+        opacity: 0
+    &::before
+      font-family: 'dashicons'
+      content: '\f138'
+      position: absolute
+      right: 8px
+      top: 8px
+      font-size: 14pt
+      opacity: 0.2
+      transition: 0.5s linear opacity
+    &:hover::before
+      opacity: 0.5
+    
+    & .caret-before-button, & .caret-after-button
+      position: absolute
+      width: 100%
+      left: 0
+      cursor: text
+    
+    & .caret-before-button
+      bottom: 100%
+      height: 20px
+
+    & .caret-after-button
+      top: 100%
+      height: 30px

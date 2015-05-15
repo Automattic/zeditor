@@ -1,0 +1,15 @@
+.tiled-gallery .entry
+  position: absolute
+  z-index: -1
+  width: 200px
+  height: 200px
+  transform-origin: top left
+  overflow: hidden
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
+  &.style-circle
+    border-radius: 50%
+
+.tiled-gallery .entry.uploading
+  opacity: 0.5

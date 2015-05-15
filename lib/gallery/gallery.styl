@@ -1,0 +1,110 @@
+.automattic-editor-wrapper
+  .block
+    .gallery
+      width: 100%
+      user-select: none
+      transition: 0.2s ease height
+      position: relative
+      overflow: hidden
+
+    .gallery
+      > .gallery-caption
+        position: absolute
+        bottom: -35px
+        left: 0
+        width: 100%
+        height: 30px
+        > input
+          padding: 0 30px
+          width: 100%
+          border: 0
+          height: 30px
+          line-height: 20px
+          text-align: center
+          font-family: 'merriweather'
+          font-size: 12px
+          font-style: oblique
+          outline: none
+          background-color: transparent
+      > .gallery-player
+        position: absolute
+        left: 0
+        bottom: 5px
+        width: 100%
+        height: 30px
+        text-align: center
+        display: none
+        &.show
+          display: block
+        > a
+          text-decoration: none
+          display: inline-block
+          width: 30px
+          line-height: 30px
+          margin: 0
+          color: white
+          text-shadow: 0 2px 6px rgba(0,0,0,.75)
+          text-align: center
+          font-size: 36px
+          &:before
+            font-family: "dashicons"
+            height: 30px
+            line-height: 30px
+            display: block
+            text-align: center
+          &.button-prev:before
+            content: "\f141";
+            left: -16px;
+            position: relative;
+          &.button-play
+            font-size: 36px
+            border: 2px solid rgba(255, 255, 255, 1)
+            background-color:  rgba(0,0,0,.6)
+            border-radius: 50%
+            line-height: 22px
+            text-shadow: none
+            margin: 0
+            height: 30px
+            width: 30px
+            &:hover
+              background-color:  rgba(0,0,0,1)
+            &:before
+              content: "\f139";
+              position: relative;
+              left: -5px;
+              top: -1px;
+            &.active:before
+              color: #1f7fac
+          &.button-next:before
+            content: "\f139";
+            left: 8px;
+            position: relative;
+          &:hover
+            color: #aaf
+
+      > .overview
+        position: absolute
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        overflow: hidden
+        z-index: 0
+        &.animation
+          transition: 0.2s ease left
+
+  .block .gallery.layout-circle .entry.drop-ready,
+  .block .gallery.layout-circle .progress-spinner-container
+    border-radius: 50%
+    overflow: hidden
+
+  .block .gallery.layout-slideshow .entry.uploading
+    opacity: 1
+    background-color: white
+
+  .block .gallery.layout-slideshow .entry.entry-active
+    background-color: white
+    .entry-image
+      width: 100%
+      height: 100%
+      margin: 0%

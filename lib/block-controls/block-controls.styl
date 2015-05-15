@@ -1,0 +1,86 @@
+.automattic-editor-wrapper
+  .block
+    .controls
+      background: white
+      border: 1px solid #ccc
+      border-radius: 3px
+      display: inline-block
+      position: absolute
+      left: 50%
+      bottom: 0
+      padding: 2px 4px
+      line-height: 0
+      opacity: 0
+      transition: 0.5s linear opacity
+      transform: translate(-50%, 50%)
+      // the following bogus rule is needed to work around a Firefox rendering bug.
+      // when translating an element 50% of its width or height, sometimes Firefox
+      // will miscalculate the bounding box of the element for painting purposes.
+      // (Most likely due to a rounding error.) Adding an invisible 1px shadow
+      // extends the bounding box just a bit so it doesn't cut out our border
+      // See issue #557.
+      -moz-box-shadow: 0 0 1px transparent;
+      
+      &.right
+        right: 20px
+        left: auto
+        transform: translate(0, 50%)
+      
+      select
+        border: none
+        background: transparent
+        color: #555
+        font-family: 'Open Sans'
+        font-size: 13px
+
+      // control button
+      a.control
+        line-height: 15px
+        display: inline-block
+        text-align: center
+        text-decoration: none
+        color: #ccc
+        padding: 5px
+        cursor: default
+        width: 30px
+        &:hover
+          color: #bbb
+        &.current-action
+          color: #2ba1cb
+
+        &::before
+          font-family: 'wpeditor'
+          content: '❉'
+          font-size: 120%
+
+        &[data-action='left']::before
+          content: '\e802'
+
+        &[data-action='right']::before
+          content: '\e805'
+
+        &[data-action='none']::before
+          content: '\e801'
+
+        &[data-action='add']::before
+          content: '+'
+          position: relative
+          top: -1px
+
+        &[data-action='rectangular']::before
+          content: '\e804'
+
+        &[data-action='square']::before
+          content: '\e807'
+
+        &[data-action='circle']::before
+          content: '\e800'
+
+        &[data-action='slideshow']::before
+          content: '\e806'
+
+    &.focused .controls, &.inner-focused .controls
+      border: 1px solid #2ba1cb
+
+    &:hover .controls
+      opacity: 1

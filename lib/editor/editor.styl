@@ -1,0 +1,191 @@
+.automattic-editor-wrapper
+  position: relative
+  z-index: 0
+
+  .editor
+    cursor: auto
+    position: relative
+    margin: -1px 0
+    padding: 1px 0
+    outline: none
+    margin-top: 30px
+
+    &.show-grid
+      background: linear-gradient(to bottom, white 0, white 9px, cyan 9px, cyan 9.5px, white 9.5px, white 20px, cyan 20px, cyan 20.5px, white 20.5px);
+      background-size: 10px 30px;
+      background-repeat: repeat-xy;
+
+    // add placeholder on first paragraph if its empty
+    &.show-placeholder::before
+      position: absolute
+      content: attr(data-placeholder)
+      color: #c0c0c0
+      padding-left: 2px
+      pointer-events: none
+      transition: 0.2s ease opacity
+      width: 100%
+      word-wrap: break-word
+      overflow: hidden
+
+    &.show-placeholder:focus::before
+      opacity: 0.6
+
+    &::after
+      content: ''
+      height: 0
+      display: block
+      clear: both
+
+  .editor, .html-block .body
+    // Base font for editor on web is 18px. Using Perfect Forth type scale.
+    font-size: 1.125rem
+    font-weight: 300
+    font-family: merriweather, serif
+    line-height: 1.45
+    height: 100%
+    word-wrap: break-word
+    white-space: pre-wrap
+
+    *
+      &::selection
+        color: inherit
+        background-color: #b1d7fc
+      &::-moz-selection
+        color: inherit
+        background-color: #b1d7fc
+
+    h1, h2, h3, h4, h5, h6, small
+      font-weight: 700
+      margin-bottom: 28px
+      line-height: 1.2
+
+    h1
+      font-size: 2.625rem
+      //transform: translate(0, 9px)
+
+    h2
+      font-size: 2rem
+      //transform: translate(0, -3px)
+
+    h3
+      font-size: 1.5rem
+      //transform: translate(0, -2px)
+
+    small, .font_small
+      font-size: 0.875rem
+
+    p, ul, ol
+      letter-spacing: 0.01rem
+      margin-bottom: 1.45em
+
+    ul > ul,
+    ol > ul,
+    ul > ol,
+    ol > ol
+      margin-bottom: 0
+
+    b, strong
+      font-weight: 700
+      line-height: 100%
+
+    i, em, code, u, strike
+      color: inherit
+      line-height: 100%
+
+    ul, ol
+      padding-left: 30px
+
+    blockquote
+      font-size: 1.15em
+      line-height: 30px
+      padding-left: 1.5em
+      padding-right: 1.5em
+      transform: translate(0, -1px)
+
+      &::before
+        color: #e8f0f5
+        position: absolute
+        font-family: 'dashicons';
+        content: '\f205'
+        top: 0
+        left: 0
+      &::after
+        color: #e8f0f5
+        position: absolute
+        font-family: 'dashicons';
+        content: '\f205'
+        bottom: 0
+        right: 0
+        transform: rotate(180deg)
+
+    a
+      text-decoration: none
+
+    a[href],
+    a[href]:active,
+    a[href]:hover,
+    a[href]:visited
+      color: #2ba1cb
+
+    // styling for when a link is being "edited" by the link tooltip
+    // (matches "::selection" styling)
+    a.editing
+      color: inherit
+      background-color: #b1d7fc
+
+    code
+      font-family: 'Menlo', monospaced
+      background: rgba(0, 0, 0, 0.03)
+      padding: 3px 10px
+      border: 1px solid rgba(#E4EBF2, 0.5)
+      border-radius: 3px
+      margin: 0 6px
+
+    table
+      background: white
+      border-collapse: collapse
+      border-spacing: 0
+      margin: 0 auto
+
+    td, th
+      padding: 8px
+      border: 1px solid #999
+
+    th
+      font-weight: bold
+
+    img
+      user-drag: none
+
+ .drag-cursor
+    background: #1192FB
+    border-radius: 1px
+    cursor: move
+    pointer-events: none
+    z-index: 9999
+
+  .drag-cursor::before, .drag-cursor::after
+    content: ''
+    background: #1192FB
+    border-radius: 1px
+    position: absolute
+    top: -5px
+    left: 0
+    width: 2px
+    height: 6px
+    transform-origin: bottom
+
+  .drag-cursor::after
+    transform: rotate(45deg)
+
+  .drag-cursor::before
+    transform: rotate(-45deg)
+
+  .drag-cursor.horizontal::after
+    transform: rotate(-135deg)
+
+  .editor-overlay
+    position: absolute
+
+    *
+      box-sizing: border-box

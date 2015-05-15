@@ -1,0 +1,62 @@
+.html-debugger
+  width: 100%
+  height: 50%
+  position: fixed
+  bottom: 0
+  left: 0
+  overflow-y: scroll
+  background: rgba(241, 241, 241, .8)
+  border-top: 1px solid #ccc
+  padding: 10px
+
+  // always on top
+  z-index: 10000
+
+  &.hidden
+    display: none
+
+  .pretty-html
+    font-family: 'Menlo', monospace
+    font-size: 9pt
+    color: #222
+
+    .line
+      margin: 10px 0
+      line-height: 1.6em
+    
+    .text
+      padding: 3px 8px
+      background: white
+      border-radius: 4px
+
+    .element
+      padding: 3px 8px
+      background: #999
+      color: #FFFFFF
+      border-radius: 4px
+
+    .whitespace
+      color: #aaa
+      padding: 2px
+    
+    .range
+      padding: 0 1px
+      height: 20px;
+      background: #2095F0
+      position: absolute
+      margin-left: -1px
+      margin-top: -1px
+      box-shadow: 0 0 0 1px rgba(241, 241, 241, .8);
+      &.start::before, &.end::before
+        content: ''
+        position: absolute
+        background: #2095F0
+        width: 6px
+        height: 6px
+        left: -2px
+        border-radius: 100%
+        box-shadow: 0 0 0 1px rgba(241, 241, 241, .8);
+      &.start::before
+        top: -4px
+      &.end::before
+        bottom: -4px

@@ -1,0 +1,22 @@
+.format-drawer
+  .editor-format-buttons
+    button.format-header.tip(title="Heading", data-active)
+      include ./header-icon.svg
+    button.bold(data-command-name="bold", title="Bold #{command}B")
+      include ./bold-icon.svg
+    button.italic(data-command-name="italic", title="Italic #{command}I")
+      include ./italic-icon.svg
+    button.strikethroug(data-command-name="strikethrough", title="Strikethrough #{altShift}D")
+      include ./del-icon.svg
+    button.justify.tip(title="Align")
+      include ./align-left-icon.svg
+    button.unorderedlist(data-command-name="insertUnorderedList", title="Bulleted List #{altShift}U")
+      include ./ul-icon.svg
+    button.orderedlist(data-command-name="insertOrderedList", title="Numbered List #{altShift}O")
+      include ./ol-icon.svg
+    button.code(data-command-name="code", title="Code #{altShift}X")
+      include ./code-icon.svg
+    button.blockquote(data-command-name="blockquote", title="Blockquote #{altShift}Q")
+      include ./quote-icon.svg
+    button.link(data-command-name="link", data-disable-title="Remove link", title="Insert/Edit link #{command}K")
+      include ./link-icon.svg

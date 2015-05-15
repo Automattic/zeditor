@@ -1,0 +1,120 @@
+
+/**
+ * "editor-tip" theme for `component/tip`.
+ *
+ * .tip.tip-[direction]
+ *   .tip-inner
+ *   .tip-arrow
+ */
+
+.editor-tip
+  font-size: 11px
+
+.editor-tip *
+  box-shadow: none
+
+.editor-tip .tip-inner
+  background-color: #fff
+  border: 1px solid #bababa
+  border-radius: 4px
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2)
+  text-align: center
+
+.editor-tip .tip-arrow
+  position: absolute
+  width: 0
+  height: 0
+  line-height: 0
+  border: 8px dashed #bababa
+
+.editor-tip.tip-top .tip-arrow,
+.editor-tip.tip-top-left .tip-arrow,
+.editor-tip.tip-top-right .tip-arrow
+  bottom: -2px
+  left: 50%
+  margin-left: -8px
+  border-top-style: solid
+  border-bottom: none
+  border-left-color: transparent
+  border-right-color: transparent
+  &::before
+    content: " "
+    position: absolute
+    border: 6px solid white
+    bottom: 2px
+    left: 50%
+    margin-left: -6px
+    border-top-style: solid
+    border-bottom: none
+    border-left-color: transparent
+    border-right-color: transparent
+
+.editor-tip.tip-bottom .tip-arrow,
+.editor-tip.tip-bottom-left .tip-arrow,
+.editor-tip.tip-bottom-right .tip-arrow
+  top: -2px
+  left: 50%
+  margin-left: -8px
+  border-bottom-style: solid
+  border-top: none
+  border-left-color: transparent
+  border-right-color: transparent
+  &::before
+    content: " "
+    position: absolute
+    border: 6px solid white
+    top: 2px
+    left: 50%
+    margin-left: -6px
+    border-bottom-style: solid
+    border-top: none
+    border-left-color: transparent
+    border-right-color: transparent
+
+.editor-tip.tip-left .tip-arrow
+  right: -2px
+  top: 50%
+  margin-top: -8px
+  border-left-style: solid
+  border-right: none
+  border-top-color: transparent
+  border-bottom-color: transparent
+  &::before
+    content: " "
+    position: absolute
+    border: 6px solid white
+    right: 2px
+    top: 50%
+    margin-top: -6px
+    border-left-style: solid
+    border-right: none
+    border-top-color: transparent
+    border-bottom-color: transparent
+
+.editor-tip.tip-right .tip-arrow
+  left: -2px
+  top: 50%
+  margin-top: -8px
+  border-right-style: solid
+  border-left: none
+  border-top-color: transparent
+  border-bottom-color: transparent
+  &::before
+    content: " "
+    position: absolute
+    border: 6px solid white
+    left: 2px
+    top: 50%
+    margin-top: -6px
+    border-right-style: solid
+    border-left: none
+    border-top-color: transparent
+    border-bottom-color: transparent
+
+.editor-tip.tip-top-left .tip-arrow,
+.editor-tip.tip-bottom-left .tip-arrow
+  right: 25px
+
+.editor-tip.tip-top-right .tip-arrow,
+.editor-tip.tip-bottom-right .tip-arrow
+  left: 25px

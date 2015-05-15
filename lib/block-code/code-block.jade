@@ -1,0 +1,29 @@
+.block.code-block
+  include ../block/common
+  .body
+    .code-wrapper
+  .options
+    select.language
+      option(value='') Plain Text
+      optgroup(label="───────")
+      option(value='css') CSS
+      option(value='html', data-mode='htmlmixed') HTML
+      option(value='javascript') JavaScript
+      option(value='java', data-mode='text/x-java') Java
+      option(value='c', data-mode='text/x-csrc') C
+      option(value='cpp', data-mode='text/x-c++src') C++
+      option(value='csharp', data-mode='text/x-csharp') C#
+      option(value='php', data-mode='text/x-php') PHP
+      option(value='markdown', data-mode='text/x-markdown') Markdown
+      option(value='diff', data-mode='text/x-diff') Diff
+    select.indentation
+      optgroup(label="Spaces")
+        option 2
+        option 3
+        option 4
+        option 8
+      optgroup(label="Tabs")
+        option ⇥ 2
+        option ⇥ 3
+        option ⇥ 4
+        option ⇥ 8

@@ -1,0 +1,67 @@
+.automattic-editor-wrapper
+  .block.gallery-block
+    padding-left: 0px
+    user-select: none
+    background-color: #fafafa
+    .body
+      padding: 25px 30px
+
+    .placeholder
+      font-family: 'Open Sans', 'Helvetica Neue', sans-serif
+      text-transform: uppercase
+      padding: 44px 0 10px
+      text-align: center
+      font-size: 80%
+      line-height: 1.5em
+      user-select: none
+      cursor: pointer
+      p
+        font-weight: bold
+      small
+        font-weight: normal
+        font-style: italic
+        &:hover
+          color: #157EAE
+          text-decoration: underline
+    & > .body .controls
+      display: none
+    & > .body:not([gallery-count="0"]) .controls
+      display: block
+
+    .placeholder
+      p
+        letter-spacing: 1px
+        height: 16px
+        line-height: 18px
+        font-size: 10px
+      .decorations
+        color: #ccc
+        line-height: 3em
+        font-family: 'wpeditor'
+        span
+          margin: 14px
+
+    .image-placeholder
+      .decoration-left::before
+        position: relative
+        top: -23px
+        font-size: 26px
+        content: '\e802'
+      .decoration-center::before
+        font-size: 92px
+        content: '\e801'
+      .decoration-right::before
+        position: relative
+        top: -23px
+        font-size: 26px
+        content: '\e805'
+
+    .gallery-placeholder
+      .decoration-center::before
+        font-size: 600%
+        content: '\e803'
+    &.drag-hover
+      box-shadow: 0 0 0 2px #1192FB
+
+    &::before
+      content: '\f128'

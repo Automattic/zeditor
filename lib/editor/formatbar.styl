@@ -1,0 +1,77 @@
+.automattic-editor-wrapper
+  .format-drawer
+    left: 0
+    z-index: 1000
+    text-align: center
+    background: white
+
+// defined at the top level instead of inside the wrapper so that
+// the "editor-toolbar-tooltips" Tips pick up the styling as well
+.editor-format-buttons
+  pointer-events: all
+  box-sizing: initial
+  display: inline-block
+  padding: 5px 0px
+
+  button
+    font-size: inherit
+    fill: #999
+    color: #999
+    outline: none
+    display: inline-block
+    margin: 0
+    padding: 5px 10px
+    position: relative
+    background: none
+    border: none
+    transition: all .1s linear
+    transition-property: color, fill, background
+    z-index: auto
+
+    &:hover
+      fill: #000
+      color: #000
+      transition: all .2s linear
+
+    &:active, &.active
+      fill: #2ba1cb
+      color: #2ba1cb
+
+    // fix for Firefox's strange extra button padding
+    // see: http://stackoverflow.com/a/4343517/376773
+    &::-moz-focus-inner
+      border: 0
+      padding: 0
+
+  button.media
+    margin-left: 40px
+
+  .tip
+    padding-bottom: 14px
+
+  .tip:after
+    content: " "
+    border-bottom-style: solid
+    border-top: 3px solid #999
+    border-left: 3px solid transparent
+    border-right: 3px solid transparent
+    border-bottom: 3px solid transparent
+    position: absolute
+    width: 0
+    height: 0
+    top: 38px
+    left: 19px
+
+  // the Header buttons have a "sub" letter
+  button .subheader
+    pointer-events: none
+    position: absolute
+    top: 5px
+    left: 21px
+
+
+@media only screen and (max-width: 960px)
+  .automattic-editor-wrapper
+    .format-drawer::before,
+    .format-drawer::after
+      display: none

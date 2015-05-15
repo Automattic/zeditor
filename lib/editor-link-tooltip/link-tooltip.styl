@@ -1,0 +1,75 @@
+.link-tooltip
+  height: 44px
+  line-height: 44px
+  padding-left: 8px
+  .state
+    padding-left: 10px
+
+.link-tooltip
+  input[type=text], .done
+    display: none
+    box-shadow: none
+  .link, .change
+    display: inline-block
+    color: #2ba1cb
+  .change
+    font-weight: 600
+
+.link-tooltip input[type=text]::-ms-clear
+    display: none
+
+.link-tooltip.edit
+  input[type=text], .done
+    display: inline-block
+  .link, .change
+    display: none
+
+.link-tooltip > .state
+  float: right
+  color: black
+
+.link-tooltip > .state > a
+  text-decoration: none
+  color: black
+
+.link-tooltip > .state > .done > div
+  height: inherit
+  width: inherit
+
+.link-tooltip > .state > .done > .dashicons-yes
+  font-size: 24px
+  position: relative
+  line-height: 44px
+  width: 40px
+
+.link-tooltip > .state > .change > .noticon-edit
+  font-size: 18px
+  line-height: 44px
+  width: 40px
+
+.link-tooltip > .state > .done.disabled
+  opacity: 0.4
+
+.link-tooltip > .link
+  max-width: 300px
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow: hidden
+
+.link-tooltip > input[type=text]
+  background-color: transparent
+  border: none
+  outline: none
+  color: #333
+  margin: 0
+  padding: 0
+  width: inherit
+
+.link-tooltip
+  > input[type=text], > a
+    height: inherit
+    padding-left: 2px
+    font-size: 15px
+    font-family: 'Open Sans', sans-serif
+    font-weight: normal
+    letter-spacing: 0.02em

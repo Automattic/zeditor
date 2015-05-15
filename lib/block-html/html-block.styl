@@ -1,0 +1,24 @@
+.automattic-editor-wrapper
+  .block.html-block
+    &::before
+      content: '\f123'
+    min-height: 40px;
+    padding: 20px 30px;
+    .body
+      background: repeating-linear-gradient(to right, 
+        rgba(#d5d5d5,0.4),
+        rgba(#d5d5d5,0.4) 1px,
+        transparent 1px, 
+        transparent 6px)
+      background-size: 30px 30px
+      background-color: #fafafa
+      &::after
+        content: "READ-ONLY"
+        position: relative
+        bottom: 3px
+        right: 8px
+        float: right
+        font-weight: bold
+        opacity: 0.4
+        letter-spacing: 2px
+        font-size: 12px

@@ -1,0 +1,93 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 100%
+}
+
+body {
+  font-family: 'Open Sans';
+  font-weight: 300;
+  margin: 0 auto;
+  background: white;
+}
+
+#version {
+  font-size: 0.5em;
+}
+
+#top {
+  padding: 10px;
+  padding-top: 20px;
+  color: white;
+  position: relative;
+  height: 20px;
+}
+
+#top .admin-bar {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+
+#top span.dashicons-wordpress {
+  color: black;
+  font-size: 30px;
+  position: relative;
+  float: left;
+  margin-left: 30px;
+}
+
+#top .admin-bar button {
+  color: #aaa;
+  float: right;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: 12px;
+  border: none;
+  background: none;
+  font-weight: 700;
+  padding: 3px 8px;
+  margin: 0 2px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+#top .admin-bar button:hover {
+  color: black;
+}
+
+#showEditor {
+  display: none;
+}
+
+*:focus {
+  outline: 0;
+}
+
+
+#editor,
+#output {
+  /*Accomodate ~75characters on one line*/
+  padding: 20px 40px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+#editor {
+  min-height: 80%;
+}
+
+#output {
+  box-sizing: border-box;
+  display: none;
+  font-family: monospace;
+  margin-top: 90px;
+  white-space: pre;
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 95%;
+  }
+}

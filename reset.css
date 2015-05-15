@@ -1,0 +1,92 @@
+.automattic-editor-wrapper {
+  display: block;
+  color: default;
+  font: 12pt sans-serif;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.automattic-editor-wrapper * {
+  position: static;
+  display: inline;
+  color: inherit;
+  font: inherit;
+  text-decoration: inherit;
+  margin: 0;
+  padding: 0;
+  background: none;
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+.automattic-editor-wrapper div,
+.automattic-editor-wrapper p,
+.automattic-editor-wrapper ul,
+.automattic-editor-wrapper ol,
+.automattic-editor-wrapper blockquote,
+.automattic-editor-wrapper h1,
+.automattic-editor-wrapper h2,
+.automattic-editor-wrapper h3,
+.automattic-editor-wrapper h4,
+.automattic-editor-wrapper h5,
+.automattic-editor-wrapper pre,
+.automattic-editor-wrapper h6 {
+  display: block;
+}
+
+.automattic-editor-wrapper li {
+  display: list-item;
+}
+
+.automattic-editor-wrapper em,
+.automattic-editor-wrapper i {
+  font-style: italic;
+}
+
+.automattic-editor-wrapper u,
+.automattic-editor-wrapper a[href] {
+  text-decoration: underline;
+}
+
+.automattic-editor-wrapper s,
+.automattic-editor-wrapper del,
+.automattic-editor-wrapper strike {
+  text-decoration: line-through;
+}
+
+.automattic-editor-wrapper table {
+  display: table;
+}
+
+.automattic-editor-wrapper caption {
+  display: table-caption;
+}
+
+.automattic-editor-wrapper tfoot {
+  display: table-footer-group;
+}
+
+.automattic-editor-wrapper thead,
+.automattic-editor-wrapper tbody {
+  display: table-row-group;
+}
+
+.automattic-editor-wrapper tr {
+  display: table-row;
+}
+
+.automattic-editor-wrapper colgroup {
+  display: table-column-group;
+}
+
+.automattic-editor-wrapper col {
+  display: table-column;
+}
+
+.automattic-editor-wrapper td,
+.automattic-editor-wrapper th {
+  display: table-cell;
+}

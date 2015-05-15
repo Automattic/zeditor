@@ -1,0 +1,143 @@
+.automattic-editor-wrapper
+  .block .gallery > .overview > .entry
+    cursor: pointer
+    background-color: #eee
+    position: absolute
+    z-index: -1
+    width: 200px
+    height: 200px
+    transform-origin: top left
+    transition: 0.2s ease transform, 0.2s ease width, 0.2s ease height, 0.4s ease padding, 0.4s ease opacity
+    overflow: hidden
+    .entry-grabber,
+    .entry-image
+      width: 100%
+      height: 100%
+    .entry-grabber
+      position: absolute
+      left: 0
+      top: 0
+      z-index: 0
+    .entry-spinner
+      position: absolute
+      width: 30%
+      height: 30%
+      left: 50%
+      top: 50%
+      margin-left: -15%
+      margin-top: -15%
+      border-radius: 50%
+      border: 10px solid rgba(255, 255, 255, 0.3)
+      background-position: center center
+    .entry-image
+      transition:  0.1s ease border-radius, 0.2s ease width, 0.2s ease height, 0.2s ease margin
+      background-size: cover
+      background-position: center center
+    &.fade
+      opacity: 0
+    &.uploading
+      .entry-image
+        -webkit-filter: grayscale(0.1) blur(2px)
+    &.uploaded
+      .progress-spinner-container
+        transition: 0.4s ease opacity
+        &.hide
+          opacity: 0
+    &.style-circle
+      background-color: transparent
+      .delete
+        margin-top: 4px
+        margin-right: 4px
+      .entry-image
+        border-radius: 50%
+        border: 1px solid rgba(0, 0, 0, 0.2)
+    > canvas.pending
+      opacity: 0
+    &:hover > a.delete
+      opacity: 1
+
+    // active styles
+    &.entry-active
+      background-color: rgba(0, 0, 0, 0.4)
+      .entry-image
+        width: 94%
+        height: 94%
+        margin: 3%
+      &.style-circle
+        background-color: transparent
+
+    // drag-drop styles
+    .drag-ghost-before-start
+      background-position: center center
+      background-size: cover
+      position: absolute
+      opacity: 0.8
+      z-index: 100
+      &::before
+        position: absolute
+        width: 100%
+        height: 100%
+        content: " "
+        background-color: rgba(255, 255, 255, 0.6)
+    &.drag-before-start
+      opacity: 1
+    &.drag-start
+      opacity: 0.6
+    &.drag-enter,
+    &.drop-enter
+      opacity: 0.7
+      .entry-image
+        width: 90%
+        height: 90%
+        margin: 5%
+    &.drop-ready
+      border: 1px dashed rgba(0, 0, 0, 0.5)
+      background-color: white
+      padding: 5px;
+      .entry-image
+        opacity: 0.4
+
+  // delete button
+  .block .gallery > .overview .delete
+    position: absolute
+    opacity: 0
+    background-color: #999
+    border-radius: 100%
+    width: 16px
+    height: 16px
+    z-index: 1
+    transition: 0.5s ease opacity
+    cursor: pointer
+    right: 0
+    top: 0
+    margin-top: 10px
+    margin-right: 10px
+    &:hover
+      background-color: #000
+      transition: all .2s linear
+      transition-property: background
+    &::before
+      cursor: pointer
+      content: '\f335'
+      text-align: center
+      position: absolute
+      top: 0
+      left: 0
+      line-height: 16px
+      width: 16px
+      height: 16px
+      color: white
+      font-size: 14px
+      font-family: 'dashicons'
+      font-weight: normal
+
+.drag-ghost
+  background-position: center center
+  background-size: cover
+  position: absolute
+  z-index: -100
+  &.style-circle
+    border-radius: 50%
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    &::before
+      border-radius: 50%

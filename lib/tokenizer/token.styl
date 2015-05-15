@@ -1,0 +1,70 @@
+@keyframes automattic-editor-token-accessory
+  0%
+    transform: scale(0.1)
+    opacity: 0
+  80%
+    transform: scale(1.1)
+    opacity: 1
+  100%
+    transform: scale(1)
+    opacity: 1
+
+.automattic-editor-wrapper
+  .has-tokens
+    position: relative
+    z-index: 1
+
+    &::before
+      content: attr(data-microcopy)
+      position: absolute;
+      right: 0
+      bottom: -20pt
+      color: #999
+      font-size: 10pt
+      font-weight: 300
+      font-family: 'Open Sans'
+  
+  .token-container
+    position: absolute
+
+  .token
+    display: block
+    position: absolute
+    z-index: -1
+    user-select: none
+    
+    &.pending
+      border-bottom: 1px dotted rgba(0, 133, 190, 0.3)
+    
+    &.focused
+      background: rgba(0, 133, 190, 0.05)
+  
+  .token-accessory
+    position: absolute
+    font-size: 0.7em
+    font-family: 'Open Sans'
+    font-weight: 300
+    color: #aaa
+    text-shadow: -1px 0 0 white, 1px 0 0 white, 0 -1px 0 white, 0 1px 0 white, -1px -1px 0 white, 1px 1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 0 0 2px white, 0 0 3px white
+    z-index: 1
+    
+    a
+      color: rgb(0, 133, 190)
+      font-weight: 400
+      cursor: pointer
+      
+      &:hover
+        border-bottom: 1px solid rgb(0, 133, 190)
+    
+    b
+      font-weight: 600
+    
+    .left
+      float: left
+      text-align: left
+      animation: automattic-editor-token-accessory 0.2s ease-in-out
+    
+    .right
+      float: right
+      text-align: right
+      animation: automattic-editor-token-accessory 0.2s ease-in-out

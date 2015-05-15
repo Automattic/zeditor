@@ -1,0 +1,27 @@
+.automattic-editor-wrapper
+  .overlay-reference
+    margin: 0 0 28px 0
+    clear: both
+    opacity: 0
+
+    &.left
+      margin-right: 20px
+      width: calc(60% - 2 * 10px)
+      float: left
+
+    &.right
+      margin-left: 20px
+      width: calc(60% - 2 * 10px)
+      float: right
+
+    /**
+     * Clearfix
+     */
+
+    &:after,
+    &:before
+      content: " "
+      display: table
+
+    &:after
+      clear: both

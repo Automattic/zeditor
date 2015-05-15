@@ -1,0 +1,11 @@
+.block.youtube-block
+  include ../block/common
+  .body
+    .video-container
+      iframe(
+        width='1280'
+        height='720'
+        src='//www.youtube.com/embed/#{id}?rel=0&amp;theme=light&amp;modestbranding=1&amp;autohide=1'
+        frameborder='0'
+        allowfullscreen
+      )
