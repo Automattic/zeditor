@@ -16,11 +16,12 @@
   },
   "homepage": "https://github.com/Automattic/zeditor",
   "browser": {
-    "zeditor": "./index.js",
+    "zeditor": "./lib/editor/index.js",
     "zeditor-plugin": "./plugins/zeditor-plugin/index.es6js",
     "zeditor-paste": "./plugins/zeditor-paste/index.js",
     "zeditor-is": "./lib/is/index.tsjs",
-    "zeditor-block-html": "./lib/block-html/index.js"
+    "zeditor-block-html": "./lib/block-html/index.js",
+    "zeditor-normalizer": "./plugins/zeditor-normalizer/index.es6js"
   },
   "dependencies": {
     "abstract-command": "2.0.0",
