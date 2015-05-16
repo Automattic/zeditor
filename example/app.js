@@ -4,6 +4,7 @@
 
 var Zeditor = require('zeditor');
 var ZeditorPaste = require('zeditor-paste');
+var ZeditorNormalizer = require('zeditor-normalizer');
 
 /**
  * Get DOM nodes
@@ -16,6 +17,7 @@ var editorNode = document.getElementById('editor');
  */
 
 Zeditor(editorNode);
+ZeditorNormalizer(editorNode);
 ZeditorPaste(editorNode);
 
 /**
