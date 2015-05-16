@@ -4,3 +4,6 @@
 *.jadejs
 *.es6js
 /editor.css
+
+# root node_modules dir
+/node_modules
