@@ -19,7 +19,8 @@
     "zeditor": "./index.js",
     "zeditor-plugin": "./plugins/zeditor-plugin/index.es6js",
     "zeditor-paste": "./plugins/zeditor-paste/index.js",
-    "zeditor-is": "./lib/is/index.tsjs"
+    "zeditor-is": "./lib/is/index.tsjs",
+    "zeditor-block-html": "./lib/block-html/index.js"
   },
   "dependencies": {
     "abstract-command": "2.0.0",

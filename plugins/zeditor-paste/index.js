@@ -16,8 +16,8 @@ var insertNode = require('range-insert-node');
 var query = require('component-query');
 var move = require('dom-move');
 
-var HTMLBlock = require('../../lib/block-html');
-var is = require('../../lib/is');
+var HTMLBlock = require('zeditor-block-html');
+var is = require('zeditor-is');
 var insertPastedContent = require('./insert');
 
 /**
