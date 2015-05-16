@@ -2,6 +2,9 @@
  * Module Dependencies
  */
 
+var Zeditor = require('zeditor');
+var plugin = require('zeditor-plugin');
+
 var htmlpipe = require('html-pipe');
 var toArray = require('to-array');
 var classes = require('component-classes');
@@ -21,19 +24,15 @@ var insertPastedContent = require('./insert');
  * Expose pasted
  */
 
-module.exports = pasted;
+module.exports = plugin(ZeditorPaste);
 
 /**
  * Pasted editor plugin
  */
 
-function pasted() {
-  return function (editor) {
-
-    editor.el.addEventListener('paste', onPaste, false);
-
-    editor.normalizer.use(normalizePaste, editor.normalizer.BEFORE_BUILTINS);
-  };
+function ZeditorPaste(node) {
+  Zeditor(node).el.addEventListener('paste', onPaste, false);
+  Zeditor(node).normalizer.use(normalizePaste, Zeditor(node).normalizer.BEFORE_BUILTINS);
 }
 
 function onPaste(e) {

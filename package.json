@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/Automattic/zeditor",
   "browser": {
-    "editor-paste": "./plugins/editor-paste/index.js"
+    "zeditor": "./index.js",
+    "zeditor-plugin": "./plugins/zeditor-plugin/index.es6js",
+    "zeditor-paste": "./plugins/zeditor-paste/index.js"
   },
   "dependencies": {
     "abstract-command": "2.0.0",
