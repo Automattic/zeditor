@@ -15,7 +15,7 @@ var voidElements = require('void-elements');
 var DEBUG = require('debug');
 var move = require('dom-move');
 
-var hacks = require('../../lib/hacks/index');
+var hacks = require('zeditor-hacks');
 var is = require('zeditor-is');
 var collapse = require('collapse');
 
