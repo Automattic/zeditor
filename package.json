@@ -18,7 +18,8 @@
   "browser": {
     "zeditor": "./index.js",
     "zeditor-plugin": "./plugins/zeditor-plugin/index.es6js",
-    "zeditor-paste": "./plugins/zeditor-paste/index.js"
+    "zeditor-paste": "./plugins/zeditor-paste/index.js",
+    "zeditor-is": "./lib/is/index.tsjs"
   },
   "dependencies": {
     "abstract-command": "2.0.0",
