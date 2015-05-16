@@ -20,6 +20,7 @@
     "zeditor-plugin": "./plugins/zeditor-plugin/index.es6js",
     "zeditor-paste": "./plugins/zeditor-paste/index.js",
     "zeditor-is": "./lib/is/index.tsjs",
+    "zeditor-hacks": "./lib/hacks/index.tsjs",
     "zeditor-block-html": "./lib/block-html/index.js",
     "zeditor-normalizer": "./plugins/zeditor-normalizer/index.es6js"
   },
