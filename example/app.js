@@ -1,41 +1,35 @@
-
 /**
- * Module dependencies.
+ * Module dependencies
  */
 
-var url = require('url');
-var Editor = require('../');
-var debug = require('debug')('editor-app');
+var Zeditor = require('zeditor');
+var ZeditorPaste = require('zeditor-paste');
 
-var parsed = url.parse(location.href, true);
+/**
+ * Get DOM nodes
+ */
 
 var editorNode = document.getElementById('editor');
-var outputNode = document.getElementById('output');
-var showEditorButtonNode = document.getElementById('showEditor');
-var showOutputButtonNode = document.getElementById('showOutput');
 
-window.editor = new Editor(editorNode);
-editor.placeholder('Tell me your story...');
+/**
+ * Instantiate editor
+ */
 
-// Plugins
-editor.use(require('editor-paste')());
+Zeditor(editorNode);
+ZeditorPaste(editorNode);
 
-// editor.use(require('../../editor-emoji')());
-// editor.use(require('../../editor-twemoji')());
-// editor.use(require('../../editor-smileys')());
-// editor.use(require('../../editor-markdown')());
-// editor.use(require('../../editor-save-state')('new'));
-// editor.use(require('../../editor-detect-title')({ words: 5 }));
-// editor.use(require('../../editor-paste-link')());
-// editor.use(require('../../editor-checkbox-list')());
-// editor.use(require('../../editor-inline-terms/mentions')());
-// editor.use(require('../../editor-inline-terms/tags')());
-// editor.use(require('../../editor-inline-terms/xposts')());
+/**
+ * Other functionality
+ */
 
-editor.on('error', function (err) {
+Zeditor(editorNode).on('error', function (err) {
   // for now, any "error" event log to the console
   console.error('editor "error" event: %o', err);
 });
+
+var outputNode = document.getElementById('output');
+var showEditorButtonNode = document.getElementById('showEditor');
+var showOutputButtonNode = document.getElementById('showOutput');
 
 showEditorButtonNode.addEventListener('click', function (e) {
   e.preventDefault();
@@ -58,5 +52,3 @@ showOutputButtonNode.addEventListener('click', function (e) {
 
   outputNode.textContent = editor.serializer.serializeRoot();
 }, false);
-
-editor.focus();
