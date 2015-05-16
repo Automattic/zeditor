@@ -3,6 +3,7 @@
  */
 
 var Zeditor = require('zeditor');
+var ZeditorNormalizer = require('zeditor-normalizer');
 var plugin = require('zeditor-plugin');
 
 var htmlpipe = require('html-pipe');
@@ -32,7 +33,7 @@ module.exports = plugin(ZeditorPaste);
 
 function ZeditorPaste(node) {
   Zeditor(node).el.addEventListener('paste', onPaste, false);
-  Zeditor(node).normalizer.use(normalizePaste, Zeditor(node).normalizer.BEFORE_BUILTINS);
+  ZeditorNormalizer(node).use(normalizePaste, ZeditorNormalizer(node).BEFORE_BUILTINS);
 
   function onPaste(e) {
     // parse and sanitize the text
@@ -41,7 +42,7 @@ function ZeditorPaste(node) {
 
       // hook for plugins to inspect/alter "paste" content before insertion
       Zeditor(node).emit('paste', content);
-      Zeditor(node).normalizer.normalize('paste', content);
+      ZeditorNormalizer(node).normalize('paste', content);
 
       var fragment = move(content);
       var selection = currentSelection(Zeditor(node).el);
@@ -62,7 +63,7 @@ function ZeditorPaste(node) {
       });
 
       // implicitly called here by the mutation observer:
-      // Zeditor(node).normalizer.normalize();
+      // ZeditorNormalizer(node).normalize();
 
       Zeditor(node).transactions.runAndSquash(function() {
         // place collapsed cursor after content
@@ -81,9 +82,7 @@ function ZeditorPaste(node) {
     if (context != 'paste') return;
 
     checkForSingleA(root);
-
-    console.log(root.innerHTML);
-
+    
     htmlpipe(root)
       .pipe(replaceElements('CITE'))
       .pipe(removeMSOEmptyParagraphs())

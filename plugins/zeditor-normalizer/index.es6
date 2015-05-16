@@ -1,27 +1,29 @@
-/// <reference path="../../types.d.ts" />
-
 /**
  * TypeScript imports
  */
 
-import throttle = require('per-frame');
-import MutationObserver = require('mutation-observer');
-import query = require('component-query');
-import currentRange = require('current-range');
-import currentSelection = require('current-selection');
-import matches = require('matches-selector');
-import dataset = require('dataset');
-import blockElements = require('block-elements');
-import inlineElements = require('inline-elements');
-import voidElements = require('void-elements');
-import DEBUG = require('debug');
-import move = require('dom-move');
+var throttle = require('per-frame');
+var MutationObserver = require('mutation-observer');
+var query = require('component-query');
+var currentRange = require('current-range');
+var currentSelection = require('current-selection');
+var matches = require('matches-selector');
+var dataset = require('dataset');
+var blockElements = require('block-elements');
+var inlineElements = require('inline-elements');
+var voidElements = require('void-elements');
+var DEBUG = require('debug');
+var move = require('dom-move');
 
-import hacks = require('../hacks/index');
-import is = require('../is/index');
-import EditorOverlayManager = require('../editor-overlay/index');
-import Editor = require('../editor/index');
-import collapse = require('collapse');
+var hacks = require('../../lib/hacks/index');
+var is = require('zeditor-is');
+var EditorOverlayManager = require('../../lib/editor-overlay/index');
+var Editor = require('../../lib/editor/index');
+var collapse = require('collapse');
+
+var Zeditor = require('zeditor');
+
+var plugin = require('zeditor-plugin');
 
 var debug = DEBUG('editor:editor-normalizer');
 
@@ -76,29 +78,13 @@ var WRAPPER_ELEMENTS = {
 };
 
 /**
- * A list of MutationRecords
- */
-
-interface MutationRecordList extends Array<MutationRecord> {}
-
-/**
  * Normalizes the content of the editor
  */
 
 class EditorNormalizer {
 
-  private editor: Editor;
-  private observer: MutationObserver;
-  private composition: boolean;
-  private middleware: { (root: HTMLElement, subtree: HTMLElement, context?: string): void }[];
-
-  public BEFORE_BUILTINS: (root: HTMLElement, subtree: HTMLElement, context?: string) => void;
-  public AFTER_BUILTINS: (root: HTMLElement, subtree: HTMLElement, context?: string) => void;
-
-  constructor(editor: Editor) {
-    if (!(this instanceof EditorNormalizer)) return new EditorNormalizer(editor);
-
-    this.editor = editor;
+  constructor(node) {
+    this.editor = Zeditor(node);
     this.observer = new MutationObserver(this.callback.bind(this));
     this.composition = false;
     this.editor.el.addEventListener('compositionstart', () => { this.composition = true }, false);
@@ -127,7 +113,7 @@ class EditorNormalizer {
    * Add a new normalization to the normalizer
    */
 
-  public use(middleware: (root: HTMLElement, subtree: HTMLElement, context?: string) => void, ref?: (root: HTMLElement, subtree: HTMLElement, context?: string) => void) {
+  use(middleware, ref) {
     if (!ref) {
       this.middleware.push(middleware);
     } else {
@@ -144,7 +130,7 @@ class EditorNormalizer {
    * Force a normalization of the editor content
    */
 
-  public normalize(context: string, root: HTMLElement = this.editor.el, subtree: HTMLElement = root) {
+  normalize(context, root = this.editor.el, subtree = root) {
 
     this.middleware.forEach((middleware) => {
       middleware(root, subtree, context);
@@ -171,7 +157,7 @@ class EditorNormalizer {
    * Starts the mutation observer
    */
 
-  private start(): void {
+  start() {
     this.observer.observe(this.editor.el, {
       childList: true,
       attributes: true,
@@ -184,7 +170,7 @@ class EditorNormalizer {
    * Stops the mutation observer
    */
 
-  private stop(): void {
+  stop() {
     this.observer.disconnect();
   }
 
@@ -192,7 +178,7 @@ class EditorNormalizer {
    * Fired whenever mutations occur in the observed DOM node
    */
 
-  private callback(records: MutationRecordList): void {
+  callback(records) {
     if (this.composition) return debug('ignoring, since composition=%o', this.composition);
     debug('normalizing %d mutation records', records.length);
 
@@ -216,7 +202,7 @@ class EditorNormalizer {
    * paragraph to allow input
    */
 
-  private updateEmptyEditor(root: HTMLElement, subtree: HTMLElement): void {
+  updateEmptyEditor(root, subtree) {
     if (!root.firstElementChild) {
       var p = document.createElement('p');
       var br = document.createElement('br');
@@ -229,14 +215,14 @@ class EditorNormalizer {
    * Wraps unknown root nodes in p tags
    */
 
-  private updateUnknownRootNodes(root: HTMLElement, subtree: HTMLElement): void {
+  updateUnknownRootNodes(root, subtree) {
     var nodes = root.childNodes;
-    var el: HTMLElement = null; // a wrapper for moving the elements into, lazily created
+    var el = null; // a wrapper for moving the elements into, lazily created
     for (var i = 0; i < nodes.length; i++) {
       var node = nodes[i];
       // check if the node is not an element, or if it's not one of the valid root elements
-      if ((node.nodeType != Node.ELEMENT_NODE) || !matches(<HTMLElement>node, ROOT_ELEMENTS)) {
-        var wrappers: string[];
+      if ((node.nodeType != Node.ELEMENT_NODE) || !matches(node, ROOT_ELEMENTS)) {
+        var wrappers;
         // check if the element requires a specialized wrapper element
         if ((wrappers = WRAPPER_ELEMENTS[node.nodeName])) {
           if (!el || el.nodeName != wrappers[0]) {
@@ -269,16 +255,16 @@ class EditorNormalizer {
    * Makes sure classless divs at the root level are converted to paragraphs
    */
 
-  private updateRootLevelClasslessDivs(root: HTMLElement, subtree: HTMLElement): void {
+  updateRootLevelClasslessDivs(root, subtree) {
     var nodes = root.childNodes;
     for (var i = 0; i < nodes.length; i++) {
       var node = nodes[i];
-      if (node.nodeName == 'DIV' && !(<HTMLElement>node).className) {
+      if (node.nodeName == 'DIV' && !(node).className) {
         var p = document.createElement('p');
-        while (node && node.nodeName == 'DIV' && !(<HTMLElement>node).className) {
+        while (node && node.nodeName == 'DIV' && !(node).className) {
           var isBreak = (node.childNodes.length == 1) && node.childNodes[0].nodeName == 'BR';
           if (!isBreak) {
-            move(<HTMLElement> node, p);
+            move(node, p);
             if (!p.lastChild || p.lastChild.nodeName != 'BR') {
               p.appendChild(document.createElement('br'));
             }
@@ -302,7 +288,7 @@ class EditorNormalizer {
    * Wrap elements that require special wrapping
    */
 
-  private updateUnwrappedElements(root: HTMLElement, subtree: HTMLElement): void {
+  updateUnwrappedElements(root, subtree) {
     var q = Object.keys(WRAPPER_ELEMENTS).join(', ');
     var els = query.all(q, subtree);
     for (var i = 0; i < els.length; i++) {
@@ -319,7 +305,7 @@ class EditorNormalizer {
    * Wrap elements that require special wrapping
    */
 
-  private updateNestedFormatting(root: HTMLElement, subtree: HTMLElement): void {
+  updateNestedFormatting(root, subtree) {
     var els = query.all(NESTED_FORMATTING_ELEMENTS, subtree);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
@@ -332,11 +318,11 @@ class EditorNormalizer {
    * Join elements that are touching each other
    */
 
-  private updateAdjacentFormatting(root: HTMLElement, subtree: HTMLElement): void {
+  updateAdjacentFormatting(root, subtree) {
     var els = query.all(ADJACENT_FORMATTING_ELEMENTS, subtree);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      var previous = <HTMLElement>el.previousSibling;
+      var previous = el.previousSibling;
       // sanity and attribute checks
       if (previous && previous.nodeName == el.nodeName && this.checkSameAttributes(el, previous)) {
         move(el, previous);
@@ -345,7 +331,7 @@ class EditorNormalizer {
     }
   }
 
-  private checkSameAttributes(a: HTMLElement, b: HTMLElement): boolean {
+  checkSameAttributes(a, b) {
     var attrs = a.attributes;
     if (attrs.length != b.attributes.length) return false;
     for (var i = 0; i < attrs.length; i++) {
@@ -361,7 +347,7 @@ class EditorNormalizer {
    * Normalize `li > p` into just `li`.
    */
 
-  private updateListWrappedParagraphs(root: HTMLElement, subtree: HTMLElement): void {
+  updateListWrappedParagraphs(root, subtree) {
     var els = query.all('li > p', subtree);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
@@ -374,7 +360,7 @@ class EditorNormalizer {
    * Move misplaced root level elements
    */
 
-  private updateMisplacedRootElements(root: HTMLElement, subtree: HTMLElement): void {
+  updateMisplacedRootElements(root, subtree) {
     var ready = false;
     while (!ready) {
       ready = true;
@@ -418,7 +404,7 @@ class EditorNormalizer {
    * Update the editor overlay
    */
 
-  private updateOverlay(root: HTMLElement, subtree: HTMLElement): void {
+  updateOverlay(root, subtree) {
     this.editor.overlay.update();
   }
 
@@ -426,12 +412,12 @@ class EditorNormalizer {
    * Delete empty root elements
    */
 
-  private updateEmptyNonVoidBlockElements(root: HTMLElement, subtree: HTMLElement): void {
+  updateEmptyNonVoidBlockElements(root, subtree) {
     var changed;
     do {
       changed = false;
       // TODO: make non global
-      var res: HTMLElement[] = query.all(NON_VOID_BLOCK_ELEMENTS + ', li', root);
+      var res = query.all(NON_VOID_BLOCK_ELEMENTS + ', li', root);
       for (var i = 0; i < res.length; i++) {
         var re = res[i];
         if (!re.firstChild) {
@@ -446,11 +432,11 @@ class EditorNormalizer {
    * Delete empty inline, non-void elements
    */
 
-  private updateEmptyNonVoidInlineElements(root: HTMLElement, subtree: HTMLElement): void {
+  updateEmptyNonVoidInlineElements(root, subtree) {
     var changed;
     do {
       changed = false;
-      var els: HTMLElement[] = query.all(NON_VOID_INLINE_ELEMENTS, subtree);
+      var els = query.all(NON_VOID_INLINE_ELEMENTS, subtree);
       for (var i = 0; i < els.length; i++) {
         var el = els[i];
         var empty = !el.firstChild || ((el.firstChild == el.lastChild) && (el.firstChild.nodeType == Node.TEXT_NODE) && (el.firstChild.nodeValue == ''));
@@ -466,9 +452,9 @@ class EditorNormalizer {
    * paragraphs with BR tags.
    */
 
-  private updateNewlineParagraphs(root: HTMLElement, subtree: HTMLElement): void {
+  updateNewlineParagraphs(root, subtree) {
     // TODO: make non global
-    var ps: HTMLElement[] = query.all('p', root);
+    var ps = query.all('p', root);
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i];
       if (1 == p.childNodes.length && is.newline(p.firstChild)) {
@@ -482,8 +468,8 @@ class EditorNormalizer {
    * Removes all line breaks are at the end of their containers
    */
 
-  private updateMeaninglessLineBreaks(root: HTMLElement, subtree: HTMLElement): void {
-    var brs: HTMLElement[] = query.all('br', subtree);
+  updateMeaninglessLineBreaks(root, subtree) {
+    var brs = query.all('br', subtree);
     for (var i = 0; i < brs.length; i++) {
       var br = brs[i];
       if ((!br.nextSibling) && br.previousSibling && br.previousSibling.nodeName != 'BR') {
@@ -499,9 +485,9 @@ class EditorNormalizer {
    * next to it.)
    */
 
-  private updateReferencesWithContent(root: HTMLElement, subtree: HTMLElement): void {
+  updateReferencesWithContent(root, subtree) {
     // TODO: make non global
-    var refs: HTMLElement[] = query.all('.overlay-reference', root);
+    var refs = query.all('.overlay-reference', root);
     for (var i = 0; i < refs.length; i++) {
       var ref = refs[i];
       if (!is.emptyOverlayReference(ref)) {
@@ -541,9 +527,9 @@ class EditorNormalizer {
    * deletes invalid hints.
    */
 
-  private updateJoinHints(root: HTMLElement, subtree: HTMLElement): void {
+  updateJoinHints(root, subtree) {
     // TODO: make non global
-    var hints: HTMLElement[] = query.all('span.join-hint', root);
+    var hints = query.all('span.join-hint', root);
     for (var i = 0; i < hints.length; i++) {
       var hint = hints[i];
       var parent = hint.parentNode;
@@ -558,7 +544,7 @@ class EditorNormalizer {
           parent.removeChild(hint);
         } else if (next.nodeType == Node.ELEMENT_NODE) {
           // next node is an element
-          if (matches(<HTMLElement>next, '.overlay-reference')) {
+          if (matches(next, '.overlay-reference')) {
             // ignore overlay references
           } else {
             if (is.joinHint(next.firstChild)) {
@@ -585,7 +571,7 @@ class EditorNormalizer {
           parent.removeChild(hint);
         } else if (prev.nodeType == Node.ELEMENT_NODE) {
           // prev node is an element
-          if (matches(<HTMLElement>prev, '.overlay-reference')) {
+          if (matches(prev, '.overlay-reference')) {
             // ignore overlay references
           } else {
             if (is.joinHint(prev.lastChild)) {
@@ -606,4 +592,4 @@ class EditorNormalizer {
   }
 }
 
-export = EditorNormalizer;
+module.exports = plugin(EditorNormalizer);
