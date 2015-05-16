@@ -4,6 +4,7 @@
 *.jadejs
 *.es6js
 /editor.css
+/example/bundle.js
 
 # root node_modules dir
 /node_modules
