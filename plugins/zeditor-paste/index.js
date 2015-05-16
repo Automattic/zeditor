@@ -33,81 +33,81 @@ module.exports = plugin(ZeditorPaste);
 function ZeditorPaste(node) {
   Zeditor(node).el.addEventListener('paste', onPaste, false);
   Zeditor(node).normalizer.use(normalizePaste, Zeditor(node).normalizer.BEFORE_BUILTINS);
-}
 
-function onPaste(e) {
-  // parse and sanitize the text
-  domPaste(e, function(content) {
-    if (!content) return;
+  function onPaste(e) {
+    // parse and sanitize the text
+    domPaste(e, function(content) {
+      if (!content) return;
 
-    // hook for plugins to inspect/alter "paste" content before insertion
-    editor.emit('paste', content);
-    editor.normalizer.normalize('paste', content);
+      // hook for plugins to inspect/alter "paste" content before insertion
+      Zeditor(node).emit('paste', content);
+      Zeditor(node).normalizer.normalize('paste', content);
 
-    var fragment = move(content);
-    var selection = currentSelection(editor.el);
-    var range = currentRange(selection);
-    var end = fragment.lastChild;
+      var fragment = move(content);
+      var selection = currentSelection(Zeditor(node).el);
+      var range = currentRange(selection);
+      var end = fragment.lastChild;
 
-    var joinHint = document.createElement('span');
-    joinHint.className = 'tmp';
-    joinHint.innerHTML = '';
-    end.appendChild(joinHint);
+      var joinHint = document.createElement('span');
+      joinHint.className = 'tmp';
+      joinHint.innerHTML = '';
+      end.appendChild(joinHint);
 
-    // inject the content into the editor
-    editor.transactions.run(function() {
-      // remove selected content (if any)
-      range.deleteContents();
+      // inject the content into the editor
+      Zeditor(node).transactions.run(function() {
+        // remove selected content (if any)
+        range.deleteContents();
 
-      insertPastedContent(editor.el, fragment, range);
+        insertPastedContent(Zeditor(node).el, fragment, range);
+      });
+
+      // implicitly called here by the mutation observer:
+      // Zeditor(node).normalizer.normalize();
+
+      Zeditor(node).transactions.runAndSquash(function() {
+        // place collapsed cursor after content
+        range.selectNode(query('.tmp', Zeditor(node).el));
+        range.deleteContents();
+        range.collapse(false);
+
+        // add range to selection
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
     });
+  }
 
-    // implicitly called here by the mutation observer:
-    // editor.normalizer.normalize();
+  function normalizePaste(root, subtree, context) {
+    if (context != 'paste') return;
 
-    editor.transactions.runAndSquash(function() {
-      // place collapsed cursor after content
-      range.selectNode(query('.tmp', editor.el));
-      range.deleteContents();
-      range.collapse(false);
+    checkForSingleA(root);
 
-      // add range to selection
-      selection.removeAllRanges();
-      selection.addRange(range);
-    });
-  });
-}
+    console.log(root.innerHTML);
 
-function normalizePaste(root, subtree, context) {
-  if (context != 'paste') return;
+    htmlpipe(root)
+      .pipe(replaceElements('CITE'))
+      .pipe(removeMSOEmptyParagraphs())
+      .pipe(detectMSOQuotes())
+      .pipe(detectMSOLists())
+      .pipe(convertMSOMarginToPadding())
+      .pipe(unwrapElements('SPAN', 'FONT'))
+      .pipe(allowedStyles('text-align', 'padding-left'))
+      .pipe(normalizeInlineElements())
+      .run();
 
-  checkForSingleA(root);
+    htmlpipe(root)
+      .pipe(normalizeWhitespace())
+      .pipe(removeComments())
+      .run();
 
-  console.log(root.innerHTML);
-
-  htmlpipe(root)
-    .pipe(replaceElements('CITE'))
-    .pipe(removeMSOEmptyParagraphs())
-    .pipe(detectMSOQuotes())
-    .pipe(detectMSOLists())
-    .pipe(convertMSOMarginToPadding())
-    .pipe(unwrapElements('SPAN', 'FONT'))
-    .pipe(allowedStyles('text-align', 'padding-left'))
-    .pipe(normalizeInlineElements())
-    .run();
-
-  htmlpipe(root)
-    .pipe(normalizeWhitespace())
-    .pipe(removeComments())
-    .run();
-
-  htmlpipe(root)
-    .pipe(joinMSOLists())
-    .pipe(allowedElements(editor, 'A', 'STRONG', 'B', 'BLOCKQUOTE', 'BR', 'CODE', 'DEL', 'DIV', 'U', 'EM', 'I', 'SUP', 'SUB',
-          'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
-          'STRIKE', 'P', 'FONT', 'OL', 'UL', 'LI'))
-    .pipe(allowedAttrs('style', 'type', 'href'))
-    .run();
+    htmlpipe(root)
+      .pipe(joinMSOLists())
+      .pipe(allowedElements(Zeditor(node), 'A', 'STRONG', 'B', 'BLOCKQUOTE', 'BR', 'CODE', 'DEL', 'DIV', 'U', 'EM', 'I', 'SUP', 'SUB',
+            'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+            'STRIKE', 'P', 'FONT', 'OL', 'UL', 'LI'))
+      .pipe(allowedAttrs('style', 'type', 'href'))
+      .run();
+  }
 }
 
 function checkForSingleA(root) {
