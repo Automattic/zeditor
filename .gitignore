@@ -1,0 +1,5 @@
+.tsjs
+*.tsjs
+*.styl.css
+*.jadejs
+*.es6js
