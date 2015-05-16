@@ -17,8 +17,6 @@ var move = require('dom-move');
 
 var hacks = require('../../lib/hacks/index');
 var is = require('zeditor-is');
-var EditorOverlayManager = require('../../lib/editor-overlay/index');
-var Editor = require('../../lib/editor/index');
 var collapse = require('collapse');
 
 var Zeditor = require('zeditor');
