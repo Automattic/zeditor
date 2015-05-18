@@ -1,5 +1,6 @@
-.tsjs
+# compiled files
 *.tsjs
 *.styl.css
 *.jadejs
 *.es6js
+/editor.css
