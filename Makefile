@@ -148,6 +148,7 @@ gh-pages: example
 	rm -rf $(GH_PAGES_TMP) \
 		&& mkdir -p $(GH_PAGES_TMP) \
 		&& rsync -rL example/* $(GH_PAGES_TMP) \
+		&& cp editor.css $(GH_PAGES_TMP) \
 		&& sed -i.bak 's/$(LOCAL_CLIENT_ID)/$(GH_PAGES_CLIENT_ID)/' $(GH_PAGES_TMP)/bundle.js \
 		&& rm -f $(GH_PAGES_TMP)/bundle.js.bak \
 		&& git checkout gh-pages \
