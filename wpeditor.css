@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'wpeditor';
+  src: url('https://cldup.com/kgwiKnjd3v.eot?64900402');
+  src: url('https://cldup.com/kgwiKnjd3v.eot?64900402#iefix') format('embedded-opentype'),
+       url('https://cldup.com/A6Aay116zg.woff?64900402') format('woff'),
+       url('https://cldup.com/PNaTJ9uXjD.ttf?64900402') format('truetype'),
+       url('https://cldup.com/elC3Nvu62H.svg?64900402#wpeditor') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'wpeditor';
+    src: url('fonts/wpeditor.svg?64900402#wpeditor') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "wpeditor";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-circle:before { content: '\e800'; } /* '' */
+.icon-full:before { content: '\e801'; } /* '' */
+.icon-left:before { content: '\e802'; } /* '' */
+.icon-link:before { content: '\e803'; } /* '' */
+.icon-mosaic:before { content: '\e804'; } /* '' */
+.icon-right:before { content: '\e805'; } /* '' */
+.icon-slideshow:before { content: '\e806'; } /* '' */
+.icon-square:before { content: '\e807'; } /* '' */
+.icon-unlink:before { content: '\e808'; } /* '' */
+.icon-del:before { content: '\e809'; } /* '' */
