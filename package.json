@@ -111,7 +111,7 @@
     "browserify-single-file": "0.2.1",
     "dox": "0.4.6",
     "parallelshell": "1.1.1",
-    "serve": "1.4.0",
+    "serve": "10.1.2",
     "styl": "0.2.9",
     "tsify": "0.8.1",
     "wr": "1.3.1",
